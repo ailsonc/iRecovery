@@ -1,0 +1,27 @@
+<app-bread-crumb [itens]="[{text:'Implantação'}]"></app-bread-crumb>
+
+<app-page-header page-title="Implantação"></app-page-header>
+
+<form [formGroup]="resourceForm" (submit)="submitForm()">
+  <div class="card">
+    <div class="card-header">
+      Implantação
+    </div>
+    <div class="card-body">
+      <div class="form-row">
+        <!-- image -->
+        <div class="form-group col-md-4">
+          <label for="image">Imagem</label>
+          <select name="image" id="image" class="form-control" formControlName="image">
+            <option *ngFor="let image of images" [value]="image">{{image.name}}</option>
+          </select>
+          <app-form-field-error [form-control]="resourceForm.get('image')"></app-form-field-error>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-server-error-messages [server-error-messages]="serverErrorMessages"></app-server-error-messages>
+  <button [disabled]="submittingForm || resourceForm.invalid" type="submit" class="btn btn-primary btn-lg float-right mt-3">Aplicar</button>
+</form>
+
+<pre>{{resourceForm.value | json }}</pre>

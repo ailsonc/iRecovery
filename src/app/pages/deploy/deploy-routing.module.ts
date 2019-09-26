@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { DeployListComponent } from './deploy-list/deploy-list.component';
+import { DeployFormComponent } from './deploy-form/deploy-form.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: DeployListComponent,
+    component: DeployFormComponent,
     data: {
-      title: 'Deploy List'
+      title: 'Deploy Form'
     }
   }
 ];

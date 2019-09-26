@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
 
 import { DeployRoutingModule } from './deploy-routing.module';
-import { DeployListComponent } from './deploy-list/deploy-list.component';
+import { DeployFormComponent } from './deploy-form/deploy-form.component';
 
 @NgModule({
-  declarations: [DeployListComponent],
+  declarations: [DeployFormComponent],
   imports: [
     SharedModule,
     DeployRoutingModule
