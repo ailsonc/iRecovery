@@ -7,28 +7,18 @@
   <tr class="bg-primary text-light">
     <th>Imagem</th>
     <th>Systema Operacional</th>
-    <th class="text-right">Valor R$</th>
-    <th class="text-center">Ações</th>
+    <th>Ações</th>
   </tr>
   </thead>
   <tbody>
     <tr *ngFor="let resource of resources">
       <td>
         <strong>{{resource.name}}</strong><br>
-        <small class="text-success">{{resource.date}}</small><br>
         <small *ngIf="resource.description">{{resource.description}}</small>
-      </td>
       <td>
         {{resource.system.name}}
-      </td>
-      <td class="text-right">
-        <strong [class.text-success]="resource.type =='revenue'" [class.text-danger]="resource.type =='expense'">
-          {{resource.amount}}
-        </strong><br>
-        <span class="badge barge-light">{{resource.paidText}}</span>
-
-      </td>
-      <td class="text-center">
+    </td>
+      <td>
         <button [routerLink]="[resource.id, 'edit']" class="btn btn-outline-info btn-sm mr-2">Editar</button>
         <button (click)="deleteResource(resource)" class="btn btn-outline-danger btn-sm">Excluir</button>
       </td>

@@ -13,28 +13,9 @@ import { SystemService } from '../../systems/service/system.service';
 })
 export class ImageFormComponent extends BaseResourceFormComponent<Image> implements OnInit {
   systems: Array<System>;
+  error: string;
+  fileUpload = {status: 'error', message: 'Teste', filePath: ''};
 
-  amountMask = {
-    mask: Number,
-    scale: 2,
-    thousandsSeparator: '', // any single char
-    padFractionalZeros: true, // if true, then pads zeros at end to the length of scale
-    normalizeZeros: true, // appends or removes zeros at ends
-    radix: ','  // fractional delimiter
-  };
-
-  ptBR = {
-    firstDayOfWeek: 0,
-    dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-    dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
-    dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
-    monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho',
-      'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-    monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-    today: 'Hoje',
-    clear: 'Limpar'
-  };
-  
   constructor(protected imageService: ImageService, protected systemService: SystemService, protected injector: Injector) {
     super(new Image, injector, imageService, Image.fromJson);
   }
@@ -44,34 +25,27 @@ export class ImageFormComponent extends BaseResourceFormComponent<Image> impleme
     this.loadCategories();
   }
 
-  get typeOptions(): Array<any> {
-    return Object.entries(Image.types).map(
-      ([value, text]) => {
-        return {
-          value: value,
-          text: text
-        };
-      }
-    );
- }
-
- protected buildResourceForm() {
+  protected buildResourceForm() {
     this.resourceForm = this.formBuilder.group({
       id: [null],
       name: [null, [Validators.required, Validators.minLength(2)]],
+      profile: [null, [Validators.required]],
       description: [null],
-      type: ['expense', [Validators.required]],
-      amount: [null, [Validators.required]],
-      date: [null, [Validators.required]],
-      paid: [true, [Validators.required]],
       systemId: [null, [Validators.required]]
-      });
+    });
   }
 
   private loadCategories() {
     this.systemService.getAll().subscribe(
       systems => this.systems = systems
     );
+  }
+
+  private onSelectedFile(files: FileList) {
+    if (files.length > 0) {
+      const file = files.item(0);
+      this.resourceForm.get('profile').setValue(file);
+    };
   }
 
   protected creationPageTitle(): String {
@@ -81,6 +55,12 @@ export class ImageFormComponent extends BaseResourceFormComponent<Image> impleme
   protected editionPageTitle(): String {
     const resourceName = this.resource.name || '';
     return 'Editar: ' + resourceName;
+  }
+
+  submitForm() {
+    const formData = new FormData();
+    formData.append('name', this.resourceForm.get('name').value);
+    formData.append('profile', this.resourceForm.get('profile').value);   
   }
 
 }
