@@ -10,6 +10,7 @@ export class InMemoryDatabase implements InMemoryDbService {
     ];
     const images: Image[] = [
       { id: 1, name: 'Imagem 1', description: 'Notebook 1', profile: null, systemId: systems[0].id, system: systems[0] } as Image,
+      { id: 2, name: 'Imagem 2', description: 'Notebook 2', profile: null, systemId: systems[0].id, system: systems[0] } as Image
     ];
     return { systems, images };
   }
