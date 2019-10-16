@@ -3,8 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'deploy',
-    loadChildren: './pages/deploy/deploy.module#DeployModule'
+    path: 'user',
+    loadChildren: './pages/users/users.module#UsersModule'
   },
   {
     path: 'systems',
@@ -16,7 +16,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/deploy',
+    redirectTo: '/user',
     pathMatch: 'full'
   }
 ];
