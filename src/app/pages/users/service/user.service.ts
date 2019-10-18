@@ -12,12 +12,5 @@ export class UserService extends BaseResourceService<User> {
   constructor(protected injector: Injector) {
     super('api/v1/user', injector, User.fromJson);
   }
-  
-  login(user: User): Observable<User> {
-    return this.http.post('/api/v1/authentication', user).pipe(
-      map(this.jsonDataToResource.bind(this)),
-      catchError(this.handleError)
-    );
-  }
 
 }

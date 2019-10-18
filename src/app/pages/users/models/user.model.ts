@@ -3,7 +3,6 @@ import { BaseResourceModel } from '../../../shared/models/base-resource.model';
 export class User extends BaseResourceModel {
   constructor(
     public id?: number,
-    public name?: string,
     public username?: string,
     public email?: string,
     public password?: string,
@@ -14,7 +13,7 @@ export class User extends BaseResourceModel {
   }
 
   static fromJson(jsonData: any): User {
-    return Object.assign(new Image(), jsonData);
+    return Object.assign(new User(), jsonData);
   }
 
 }
