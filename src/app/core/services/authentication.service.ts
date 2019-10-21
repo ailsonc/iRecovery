@@ -10,7 +10,6 @@ import { environment } from 'src/environments/environment';
 export class AuthenticationService {
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
-    private apiUrl = "http://localhost:4200/api/v1/login";
 
     constructor(private http: HttpClient) {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
@@ -18,15 +17,12 @@ export class AuthenticationService {
     }
 
     public get currentUserValue(): User {
-        console.log("currentUserValue " + this.currentUserSubject);
         return this.currentUserSubject.value;
     }
 
     login(credentials) {
-        console.log("credentials", credentials);
         return this.http.post<User>(`${environment.apiUrl}/api/v1/login`, credentials)
             .pipe(map(user => {
-                console.log("user", user);
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('currentUser', JSON.stringify(user));
                 this.currentUserSubject.next(user);
