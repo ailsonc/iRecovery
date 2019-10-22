@@ -4,10 +4,8 @@ export class User extends BaseResourceModel {
   constructor(
     public id?: number,
     public username?: string,
-    public email?: string,
     public password?: string,
-    public status?: number,
-    public token?: string
+    public status?: number
   ) {
     super();
   }

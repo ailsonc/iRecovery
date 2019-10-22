@@ -42,7 +42,7 @@ export class ImageFormComponent extends BaseResourceFormComponent<Image> impleme
     );
   }
 
-  private editionPageTitle(): String {
+  protected editionPageTitle(): String {
     const resourceName = this.resource.name || '';
     return 'Editar: ' + resourceName;
   }
@@ -54,7 +54,7 @@ export class ImageFormComponent extends BaseResourceFormComponent<Image> impleme
     };
   }
 
-  private createResource() {
+  protected createResource() {
     this.setResouce();
     // Criando um Resource nova e atribuindo os valores de resourceForm a constante.
     this.resourceService.create(this.jsonDataToResourceFn(this.resource))
@@ -64,7 +64,7 @@ export class ImageFormComponent extends BaseResourceFormComponent<Image> impleme
         );
   }
 
-  private updateResource() {
+  protected updateResource() {
     this.setResouce();
     // Criando um Resource nova e atribuindo os valores de resourceForm a constante.
     this.resourceService.update(this.jsonDataToResourceFn(this.resource))

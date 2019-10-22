@@ -1,3 +1,27 @@
-<p>
-  user-list works!
-</p>
+<app-bread-crumb [itens]="[{text:'Usuários'} ]"></app-bread-crumb>
+
+<app-page-header page-title="Usuários" button-link="new" button-class="btn-success" button-text="Novo Usuário"></app-page-header>
+
+<table class="table table-hover">
+  <thead>
+  <tr class="bg-primary text-light">
+    <th>Usuario</th>
+    <th>Status</th>
+    <th>Ações</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let resource of resources">
+      <td>
+        <strong>{{resource.username}}</strong><br>
+      </td>
+      <td>
+        <small *ngIf="resource.status == 1">Ativo</small>
+      </td>
+      <td>
+        <button [routerLink]="[resource.id, 'edit']" class="btn btn-outline-info btn-sm mr-2">Editar</button>
+        <button (click)="deleteResource(resource)" class="btn btn-outline-danger btn-sm">Desativar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

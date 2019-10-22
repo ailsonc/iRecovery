@@ -23,10 +23,6 @@ export class SystemFormComponent extends BaseResourceFormComponent<System> {
     });
   }
 
-  protected creationPageTitle(): String {
-    return 'Cadastrar';
-  }
-
   protected editionPageTitle(): String {
     const resourceName = this.resource.name || '';
     return 'Editar: ' + resourceName;
