@@ -15,6 +15,7 @@ export class ImageFormComponent extends BaseResourceFormComponent<Image> impleme
   systems: Array<System>;
   error: string;
   fileUpload = {status: 'error', message: 'Teste', filePath: ''};
+  resource = new Image();
 
   constructor(protected imageService: ImageService, protected systemService: SystemService, protected injector: Injector) {
     super(new Image, injector, imageService, Image.fromJson);
@@ -22,7 +23,7 @@ export class ImageFormComponent extends BaseResourceFormComponent<Image> impleme
 
   ngOnInit() {
     super.ngOnInit();
-    this.loadCategories();
+    this.loadSystems();
   }
 
   protected buildResourceForm() {
@@ -31,14 +32,19 @@ export class ImageFormComponent extends BaseResourceFormComponent<Image> impleme
       name: [null, [Validators.required, Validators.minLength(2)]],
       profile: [null, [Validators.required]],
       description: [null],
-      systemId: [null, [Validators.required]]
+      idsystem: [null, [Validators.required]]
     });
   }
 
-  private loadCategories() {
+  private loadSystems() {
     this.systemService.getAll().subscribe(
       systems => this.systems = systems
     );
+  }
+
+  private editionPageTitle(): String {
+    const resourceName = this.resource.name || '';
+    return 'Editar: ' + resourceName;
   }
 
   private onSelectedFile(files: FileList) {
@@ -48,19 +54,38 @@ export class ImageFormComponent extends BaseResourceFormComponent<Image> impleme
     };
   }
 
-  protected creationPageTitle(): String {
-    return 'Cadastrar';
+  private createResource() {
+    this.setResouce();
+    // Criando um Resource nova e atribuindo os valores de resourceForm a constante.
+    this.resourceService.create(this.jsonDataToResourceFn(this.resource))
+        .subscribe(
+            resource => this.actionsForSuccess(resource),
+            error => this.actionsForError(error)
+        );
   }
 
-  protected editionPageTitle(): String {
-    const resourceName = this.resource.name || '';
-    return 'Editar: ' + resourceName;
+  private updateResource() {
+    this.setResouce();
+    // Criando um Resource nova e atribuindo os valores de resourceForm a constante.
+    this.resourceService.update(this.jsonDataToResourceFn(this.resource))
+        .subscribe(
+            resource => this.actionsForSuccess(resource),
+            error => this.actionsForError(error)
+        );
   }
 
-  submitForm() {
+  private setResouce() {
+  /*
     const formData = new FormData();
-    formData.append('name', this.resourceForm.get('name').value);
-    formData.append('profile', this.resourceForm.get('profile').value);   
+    formData.append('profile', this.resourceForm.get('profile').value); 
+    */
+   const profile = this.resourceForm.get('profile').value;
+    
+   this.resource.name = this.resourceForm.get('name').value;
+   this.resource.description = this.resourceForm.get('description').value;
+   this.resource.filename = profile.name;
+   this.resource.filepath = profile.name;
+   this.resource.filehash = profile.name;
+   this.resource.idsystem = this.resourceForm.get('idsystem').value;
   }
-
 }

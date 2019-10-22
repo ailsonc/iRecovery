@@ -30,11 +30,11 @@
         </div>
         <!-- systemId -->
         <div class="form-group col-md-4">
-          <label for="systemId">Sistema Operacional</label>
-          <select name="systemId" id="systemId" class="form-control" formControlName="systemId">
+          <label for="idsystem">Sistema Operacional</label>
+          <select name="idsystem" id="idsystem" class="form-control" formControlName="idsystem">
             <option *ngFor="let system of systems" [value]="system.id">{{system.name}}</option>
           </select>
-          <app-form-field-error [form-control]="resourceForm.get('systemId')"></app-form-field-error>
+          <app-form-field-error [form-control]="resourceForm.get('idsystem')"></app-form-field-error>
         </div>
       </div>
       <!--progress-->

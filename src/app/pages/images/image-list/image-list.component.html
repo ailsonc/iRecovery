@@ -6,7 +6,6 @@
   <thead>
   <tr class="bg-primary text-light">
     <th>Imagem</th>
-    <th>Systema Operacional</th>
     <th>Ações</th>
   </tr>
   </thead>
@@ -15,9 +14,7 @@
       <td>
         <strong>{{resource.name}}</strong><br>
         <small *ngIf="resource.description">{{resource.description}}</small>
-      <td>
-        {{resource.system.name}}
-    </td>
+      </td>
       <td>
         <button [routerLink]="[resource.id, 'edit']" class="btn btn-outline-info btn-sm mr-2">Editar</button>
         <button (click)="deleteResource(resource)" class="btn btn-outline-danger btn-sm">Excluir</button>

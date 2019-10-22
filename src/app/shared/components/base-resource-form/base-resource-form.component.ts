@@ -83,11 +83,11 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
     }
 
     protected creationPageTitle(): String {
-        return 'novo';
+        return 'Cadastrar';
     }
 
     protected editionPageTitle(): String {
-        return 'edição';
+        return 'Editar';
     }
 
     protected createResource() {
@@ -117,6 +117,9 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
         /* this.route.snapshot.url[0].path;
            skipLocationChange: não salvar historico do navegador que passou na pagina
            redirect/reload componen page */
+           console.log('baseComponentPath: ' + baseComponentPath);
+           console.log('resource: ' + resource.id);
+
         this.router.navigateByUrl(baseComponentPath, { skipLocationChange: true }).then(
             () => this.router.navigate([baseComponentPath, resource.id, 'edit'])
         );

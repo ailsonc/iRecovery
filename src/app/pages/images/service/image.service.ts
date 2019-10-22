@@ -1,9 +1,9 @@
 import { Injectable, Injector } from '@angular/core';
+import { environment } from 'src/environments/environment';
+
 import { BaseResourceService } from '../../../shared/services/base-resource-service';
 import { Image } from '../models/image.model';
 import { SystemService } from '../../systems/service/system.service';
-import { map } from 'rxjs/operators'; 
-import * as moment from "moment";
 
 import { Observable } from 'rxjs';
 import { catchError, flatMap } from 'rxjs/operators';
@@ -14,7 +14,7 @@ import { catchError, flatMap } from 'rxjs/operators';
 export class ImageService extends BaseResourceService<Image> {
 
   constructor(protected injector: Injector, private systemService: SystemService) {
-    super('api/images', injector, Image.fromJson);
+    super(`${environment.apiUrl}/api/v1/image`, injector, Image.fromJson);
   }
 
   create(image: Image): Observable<Image> {
@@ -26,7 +26,7 @@ export class ImageService extends BaseResourceService<Image> {
   }
 
   private setSystemAndSendToServer(image: Image, sendFn: any): Observable<Image> {
-    return this.systemService.getById(image.systemId).pipe(
+    return this.systemService.getById(image.idsystem).pipe(
       flatMap( system => {
         image.system = system;
         return sendFn(image);

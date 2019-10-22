@@ -5,10 +5,13 @@ export class Image extends BaseResourceModel {
   constructor(
     public id?: number,
     public name?: string,
-    public profile?: FormData,
     public description?: string,
-    public systemId?: number,
+    public filename?: System,
+    public filepath?: System,
+    public filehash?: System,
+    public idsystem?: number,
     public system?: System
+    
   ) {
     super();
   }
