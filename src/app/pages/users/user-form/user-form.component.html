@@ -1,3 +1,39 @@
-<p>
-  user-form works!
-</p>
+<app-bread-crumb [itens]="[{text:'Usuários', link:'/user'}, {text:pageTitle} ]"></app-bread-crumb>
+ 
+<app-page-header [page-title]="pageTitle" button-link="/user" button-class="btn-light" button-text="<< Voltar"></app-page-header>
+
+<form [formGroup]="resourceForm" (submit)="submitForm()">
+  <div class="card">
+    <div class="card-header">
+      Informações sobre o Usuário
+    </div>
+    <div class="card-body">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="username">Nome</label>
+          <input type="text" class="form-control" id="username" formControlName="username">
+          <app-form-field-error [form-control]="resourceForm.get('username')"></app-form-field-error>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="name" formControlName="password">
+          <app-form-field-error [form-control]="resourceForm.get('password')"></app-form-field-error>
+        </div>
+        <div class="form-group col-md-2" [ngClass]="currentAction == 'new' ? 'disabled' : 'activated'">
+          <label for="status">Status</label>
+          <div id="status" class="btn-group">
+            <label (click)="resourceForm.get('status').setValue(1)" [class.active]="resourceForm.get('status').value == 1" class="btn btn-outline-info">
+              Ativo
+            </label>
+            <label (click)="resourceForm.get('status').setValue(0)" [class.active]="resourceForm.get('status').value == 0" class="btn btn-outline-info">
+              Desativo
+            </label>
+          </div>
+          <app-form-field-error [form-control]="resourceForm.get('status')"></app-form-field-error>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-server-error-messages [server-error-messages]="serverErrorMessages"></app-server-error-messages>
+  <button [disabled]="submittingForm || resourceForm.invalid" type="submit" class="btn btn-primary btn-lg float-right mt-3">Salvar</button>
+</form>
