@@ -5,6 +5,10 @@ import { AuthGuard } from './core/helpers/auth.guard';
 
 const routes: Routes = [
   {
+    path: 'irecovey',
+    loadChildren: './pages/irecovery/irecovery.module#IrecoveryModule'
+  },
+  {
     path: 'login',
     component: LoginComponent
   },
@@ -25,7 +29,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/login',
+    redirectTo: '/irecovey',
     pathMatch: 'full'
   }
 ];
