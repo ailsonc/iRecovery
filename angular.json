@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "finansys": {
+    "irecovery": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -36,7 +36,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/finansys",
+            "outputPath": "dist/irecovery",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -89,18 +89,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "finansys:build"
+            "browserTarget": "irecovery:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "finansys:build:production"
+              "browserTarget": "irecovery:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "finansys:build"
+            "browserTarget": "irecovery:build"
           }
         },
         "test": {
@@ -134,7 +134,7 @@
         }
       }
     },
-    "finansys-e2e": {
+    "irecovery-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "prefix": "",
@@ -143,11 +143,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "finansys:serve"
+            "devServerTarget": "irecovery:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "finansys:serve:production"
+              "devServerTarget": "irecovery:serve:production"
             }
           }
         },
@@ -163,5 +163,5 @@
       }
     }
   },
-  "defaultProject": "finansys"
+  "defaultProject": "irecovery"
 }
