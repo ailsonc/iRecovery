@@ -18,6 +18,11 @@ const routes: Routes = [
     canActivate: [AuthGuard] 
   },
   {
+    path: 'upload',
+    loadChildren: './pages/upload/upload.module#UploadModule',
+    canActivate: [AuthGuard] 
+  },
+  {
     path: 'systems',
     loadChildren: './pages/systems/systems.module#SystemsModule',
     canActivate: [AuthGuard] 
