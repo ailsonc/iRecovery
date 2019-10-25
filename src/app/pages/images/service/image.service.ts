@@ -1,10 +1,7 @@
 import { Injectable, Injector } from '@angular/core';
-import { environment } from 'src/environments/environment';
-
 import { BaseResourceService } from '../../../shared/services/base-resource-service';
 import { Image } from '../models/image.model';
 import { SystemService } from '../../systems/service/system.service';
-
 import { Observable } from 'rxjs';
 import { catchError, flatMap } from 'rxjs/operators';
 
@@ -14,7 +11,7 @@ import { catchError, flatMap } from 'rxjs/operators';
 export class ImageService extends BaseResourceService<Image> {
 
   constructor(protected injector: Injector, private systemService: SystemService) {
-    super(`${environment.apiUrl}/api/v1/image`, injector, Image.fromJson);
+    super('/api/v1/image', injector, Image.fromJson);
   }
 
   create(image: Image): Observable<Image> {
