@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
 
 import { UploadRoutingModule } from './upload-routing.module';
-import { UploadFormComponent } from './upload-form/upload-form.component';
+import { ImageFormComponent } from './image-form/image-form.component';
 
 @NgModule({
-  declarations: [UploadFormComponent],
+  declarations: [ImageFormComponent],
   imports: [
     SharedModule,
     UploadRoutingModule

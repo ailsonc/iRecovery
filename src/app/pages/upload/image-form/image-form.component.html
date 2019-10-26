@@ -1,0 +1,67 @@
+<app-bread-crumb [itens]="[{text:'Imagens', link:'/images'}, {text:pageTitle} ]"></app-bread-crumb>
+
+<app-page-header [page-title]="pageTitle" button-link="/images" button-class="btn-light" button-text="<< Voltar">
+</app-page-header>
+
+<form [formGroup]="resourceForm" (ngSubmit)="onSubmit()">
+  <div class="card">
+    <div class="card-header">
+      Informações sobre a Imagem
+    </div>
+    <div class="card-body">
+      <div class="form-row">
+        <!-- name -->
+        <div class="form-group col-md-6">
+          <label for="name">Nome</label>
+          <input type="text" class="form-control" id="name" formControlName="name">
+          <app-form-field-error [form-control]="resourceForm.get('name')"></app-form-field-error>
+        </div>
+        <!-- file -->
+        <div class="form-group col-md-6">
+          <label for="profile">ISO</label>
+          <input type="file" class="form-control-file" id="profile" (change)="onSelectedFile($event)">
+          <app-form-field-error [form-control]="resourceForm.get('profile')"></app-form-field-error>
+        </div>
+      </div>
+      <div class="form-row">
+        <!-- description -->
+        <div class="form-group col-md-7">
+          <label for="description">Descrição</label>
+          <input type="text" class="form-control" id="description" formControlName="description">
+        </div>
+        <!-- systemId -->
+        <div class="form-group col-md-5">
+          <label for="idsystem">Sistema Operacional</label>
+          <select name="idsystem" id="idsystem" class="form-control" formControlName="idsystem">
+            <option *ngFor="let system of systems" [value]="system.id">{{system.name}}</option>
+          </select>
+          <app-form-field-error [form-control]="resourceForm.get('idsystem')"></app-form-field-error>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <div *ngIf="fileUpload.status==='progress'">
+            <div class="progress" style="height: 20px;margin-bottom:20px;">
+              <div class="progress-bar" role="progressbar" [style.width.%]="fileUpload.message" aria-valuenow="25"
+                aria-valuemin="0" aria-valuemax="100">{{fileUpload.message}}%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <button [disabled]="submittingForm || resourceForm.invalid" type="submit"
+        class="btn btn-primary btn-lg float-right mt-3">Salvar</button>
+
+    </div>
+  </div>
+</form>
+<div *ngIf="fileUpload.status==='error'">
+  <div [innerHTML]="fileUpload.message"></div>
+</div>
+
+<div *ngIf="fileUpload.status==='success'">
+  <img [src]="fileUpload.filePath" height="200px" />
+</div>
+<p>{{ error }}</p>

@@ -6,12 +6,13 @@ import { catchError, map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class UploadService {
-
+export class ImageService {
+  
+  apiPath = '/api/v1/image';
   constructor(private http: HttpClient) { }
 
-  upload(formData) {
-    return this.http.post<any>('/api/v1/upload', formData, {
+  create(formData) {
+    return this.http.post<any>(`${this.apiPath}`, formData, {
       reportProgress: true,
       observe: 'events'
     }).pipe(
