@@ -6,7 +6,7 @@ import { ImageListComponent } from './image-list/image-list.component';
 import { ImageFormComponent } from './image-form/image-form.component';
 
 @NgModule({
-  declarations: [ImageListComponent, ImageFormComponent],
+  declarations: [ImageListComponent,ImageFormComponent],
   imports: [
     SharedModule,
     ImagesRoutingModule

@@ -1,8 +1,9 @@
 <app-bread-crumb [itens]="[{text:'Imagens', link:'/images'}, {text:pageTitle} ]"></app-bread-crumb>
 
-<app-page-header [page-title]="pageTitle" button-link="/images" button-class="btn-light" button-text="<< Voltar"></app-page-header>
+<app-page-header [page-title]="pageTitle" button-link="/images" button-class="btn-light" button-text="<< Voltar">
+</app-page-header>
 
-<form [formGroup]="resourceForm" (submit)="submitForm()">
+<form [formGroup]="resourceForm" (ngSubmit)="submitForm()">
   <div class="card">
     <div class="card-header">
       Informações sobre a Imagem
@@ -17,8 +18,8 @@
         </div>
         <!-- file -->
         <div class="form-group col-md-6">
-          <label for="profile">ISO</label>
-          <input type="file" class="form-control-file" id="profile" (change)="onSelectedFile($event.target.files)">
+          <label for="profile">Arquivo</label>
+          <input type="file" class="form-control-file" id="profile" (change)="onSelectedFile($event)">
           <app-form-field-error [form-control]="resourceForm.get('profile')"></app-form-field-error>
         </div>
       </div>
@@ -29,7 +30,7 @@
           <input type="text" class="form-control" id="description" formControlName="description">
         </div>
         <!-- systemId -->
-        <div class="form-group col-md-4">
+        <div class="form-group col-md-5">
           <label for="idsystem">Sistema Operacional</label>
           <select name="idsystem" id="idsystem" class="form-control" formControlName="idsystem">
             <option *ngFor="let system of systems" [value]="system.id">{{system.name}}</option>
@@ -37,18 +38,30 @@
           <app-form-field-error [form-control]="resourceForm.get('idsystem')"></app-form-field-error>
         </div>
       </div>
-      <!--progress-->
-      <div *ngIf="fileUpload.status!=='progress'">
-        <div class="progress" style="height: 20px;margin-bottom:20px;">
-          <div class="progress-bar" role="progressbar" [style.width.%]="fileUpload.message" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{fileUpload.message}}%</div>
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <div *ngIf="fileUpload.status==='progress'">
+            <div class="progress" style="height: 20px;margin-bottom:20px;">
+              <div class="progress-bar" role="progressbar" [style.width.%]="fileUpload.message" aria-valuenow="25"
+                aria-valuemin="0" aria-valuemax="100">{{fileUpload.message}}%</div>
+            </div>
+          </div>
         </div>
       </div>
-      <!--message-->
-      <app-file-upload-error-message [file-upload]="fileUpload"></app-file-upload-error-message>
+
+
+
+      <button [disabled]="submittingForm || resourceForm.invalid" type="submit"
+        class="btn btn-primary btn-lg float-right mt-3">Salvar</button>
+
     </div>
   </div>
-  <app-server-error-messages [server-error-messages]="serverErrorMessages"></app-server-error-messages>
-  <button [disabled]="submittingForm || resourceForm.invalid" type="submit" class="btn btn-primary btn-lg float-right mt-3">Salvar</button>
 </form>
+<div *ngIf="fileUpload.status==='error'">
+  <div [innerHTML]="fileUpload.message"></div>
+</div>
 
-<pre>{{resourceForm.value | json }}</pre>
+<div *ngIf="fileUpload.status==='success'">
+  <img [src]="fileUpload.filePath" height="200px" />
+</div>
+<p>{{ fileUpload | json }}</p>
