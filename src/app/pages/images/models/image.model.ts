@@ -6,9 +6,9 @@ export class Image extends BaseResourceModel {
     public id?: number,
     public name?: string,
     public description?: string,
-    public filename?: System,
-    public filepath?: System,
-    public filehash?: System,
+    public originalname?: string,
+    public filename?: string,
+    public filesize?: string,
     public idsystem?: number,
     public system?: System
     

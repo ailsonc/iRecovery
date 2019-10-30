@@ -48,17 +48,14 @@ export class ImageService {
     );
   }
 
-  update(formData, image: Image): Observable<Image> {
+  update(image: Image): Observable<Image> {
     const url = `${this.apiPath}/${image.id}`;
     return this.systemService.getById(image.idsystem).pipe(
       flatMap( system => {
         image.system = system;
-        return this.http.put(`${this.apiPath}`, formData, {
-          reportProgress: true,
-          observe: 'events'
-        }).pipe(
-          map(event => this.getEventMessage(event, formData)),
-          catchError(this.handleError)
+        return this.http.put(url, image).pipe(
+          catchError(this.handleError),
+          map(() => image)
         );
       })
     );

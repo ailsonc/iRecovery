@@ -28,7 +28,6 @@ export class ImageFormComponent implements OnInit, AfterContentChecked {
 
   ngOnInit() {
     this.setCurrentAction();
-    this.buildResourceForm();
     this.loadImage();
     this.loadSystems();
   }
@@ -49,7 +48,7 @@ export class ImageFormComponent implements OnInit, AfterContentChecked {
     if (this.currentAction === 'new') {
       this.createImage();
     } else {
-      //this.updateImage();
+      this.updateImage();
     }
   }
 
@@ -57,12 +56,14 @@ export class ImageFormComponent implements OnInit, AfterContentChecked {
   private setCurrentAction() {
     if (this.route.snapshot.url[0].path === 'new') {
       this.currentAction = 'new';
+      this.newBuildResourceForm();
     } else {
       this.currentAction = 'edit';
+      this.editBuildResourceForm();
     }
   }
 
-  private buildResourceForm() {
+  private newBuildResourceForm() {
     this.resourceForm = this.formBuilder.group({
       id: [null],
       name: [null, [Validators.required, Validators.minLength(2)]],
@@ -72,6 +73,14 @@ export class ImageFormComponent implements OnInit, AfterContentChecked {
     });
   }
 
+  private editBuildResourceForm() {
+    this.resourceForm = this.formBuilder.group({
+      id: [null],
+      name: [null, [Validators.required, Validators.minLength(2)]],
+      description: [null],
+      idsystem: [null, [Validators.required]]
+    });
+  }
   private loadImage() {
     if (this.currentAction === 'edit') {
       this.route.paramMap.pipe(
@@ -79,7 +88,7 @@ export class ImageFormComponent implements OnInit, AfterContentChecked {
       ).subscribe(
         (image) =>{
           this.image = image;
-          this.resourceForm.patchValue(image); // binds loader entry data to entryForm
+          this.resourceForm.patchValue(image); // binds loader entry data to resourceForm
       },
         (error) => {
           alert('ocorreu um erro no servidor, tente mas tarde.');
@@ -114,6 +123,15 @@ export class ImageFormComponent implements OnInit, AfterContentChecked {
       res => this.actionsForSuccess(res),
       error => this.actionsForError(error)
     );
+  }
+
+  private updateImage() {
+    const image: Image = Object.assign(new Image(), this.resourceForm.value);
+    this.imageService.update(image)
+      .subscribe(
+        data => this.actionsForSuccess(data),
+        error => this.actionsForError(error)
+      );
   }
 
   private actionsForSuccess(res) {
